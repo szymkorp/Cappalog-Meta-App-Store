@@ -1,6 +1,9 @@
 import java.sql.*;
 import javax.sql.*;
 
+/*
+ * This needs to be run in eclipse with the mysql-connector jar file
+ */
 
 public class SQLConnection {
 
