@@ -5,16 +5,18 @@ public class APP {
     //===============================properties
     private String name, developer, link, description, platform;
     private double price;
-    private Map<User, ArrayList<String>> comments;
+    private int id;
+    //private Map<User, ArrayList<String>> comments;
     //===============================constructors
-    public APP(String name, String developer, String link, String description, String platform, double price, Map<User, ArrayList<String>> comments) {
-        this.name = name;
+    public APP(int id, String name, String developer, String link, String description, String platform, double price) {
+        this.id = id;
+    	this.name = name;
         this.developer = developer;
         this.link = link;
         this.description = description;
         this.platform = platform;
         this.price = price;
-        this.comments = null;
+        //this.comments = null;
     }
 
     //===============================getter/setter
@@ -66,11 +68,4 @@ public class APP {
         this.price = price;
     }
 
-    public Map<User, ArrayList<String>> getComments() {
-        return comments;
-    }
-
-    public void setComments(Map<User, ArrayList<String>> comments) {
-        this.comments = comments;
-    }
 }
