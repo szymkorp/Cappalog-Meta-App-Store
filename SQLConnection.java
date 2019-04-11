@@ -14,7 +14,7 @@ public class SQLConnection {
 	       Statement stmt = connect.createStatement();
 	       String sql = "Select * From apptable;";
 	       ResultSet rs = stmt.executeQuery(sql);
-	       if (rs.next()) {
+	       while (rs.next()) {
 	    	   int id = rs.getInt("appID");
 	    	   String name = rs.getString("Name");
 	    	   String dev = rs.getString("Developer");
@@ -26,7 +26,7 @@ public class SQLConnection {
 	    	   appList.add(app);
 	       }
 	       System.out.println(rs);
-	       
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
