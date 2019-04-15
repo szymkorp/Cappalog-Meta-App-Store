@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 public class SQLConnection {
 
-	public static void main(String[] args) throws ClassNotFoundException {
+	private static Connection connect;
+	private static ArrayList<APP> appList;
+	
+	public SQLConnection() {
 		String url = "jdbc:mysql://localhost:3306/cappalogdb"; //databaseName=applist;user=Test201User;password=user201";
-		Connection connect = null;
-		ArrayList<APP> appList = new ArrayList<APP>();
+		appList = new ArrayList<APP>();
 		 try{
 	       Class.forName("com.mysql.jdbc.Driver");
 	       connect = DriverManager.getConnection(url,"romerta", "romert2GE");
@@ -28,7 +30,6 @@ public class SQLConnection {
 	       System.out.println(rs);
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		finally {
@@ -41,7 +42,22 @@ public class SQLConnection {
 			}
 		}
 	}
+	
+	public static boolean loginCheck(String username, String password) {
+		Statement log = connect.createStatement();
+	    String check = "Select * From apptable WHERE userName = '" + username + "' AND userPassword = '" + password + "';";
+	    ResultSet rs = log.executeQuery(check);
+	    return rs.next(); // returns true if user exists, false if user does not exist (rs is empty)
+	}
 
+	public static void submitApp(String name, String developer, String link, String description, String platform, double price) {
+		Statement st = connect.createStatement();
+		String insert = "INSERT INTO submittedApps (Name, Developer, Link, Description, Platform, Price, IsAdded" 
+				+ " VALUES ('" + name + "', '" + developer + "', '" + "', '" + link + "', '" + description
+				+ "', '" + platform + "', " + price + ", 'n'";
+	    st.executeUpdate(insert);
+	}
 
+	
 
 }
