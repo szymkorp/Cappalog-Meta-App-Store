@@ -5,30 +5,12 @@ import java.util.ArrayList;
 public class SQLConnection {
 
 	private static Connection connect;
-	private static ArrayList<APP> appList;
 	
 	public SQLConnection() {
 		String url = "jdbc:mysql://localhost:3306/cappalogdb"; //databaseName=applist;user=Test201User;password=user201";
-		appList = new ArrayList<APP>();
 		 try{
 	       Class.forName("com.mysql.jdbc.Driver");
 	       connect = DriverManager.getConnection(url,"romerta", "romert2GE");
-	       Statement stmt = connect.createStatement();
-	       String sql = "Select * From apptable;";
-	       ResultSet rs = stmt.executeQuery(sql);
-	       while (rs.next()) {
-	    	   int id = rs.getInt("appID");
-	    	   String name = rs.getString("Name");
-	    	   String dev = rs.getString("Developer");
-	    	   String link = rs.getString("Link");
-	    	   String desc = rs.getString("Description");
-	    	   String plat = rs.getString("Platform");
-	    	   double price = rs.getDouble("Price");
-	    	   APP app = new APP(id, name, dev, link, plat, plat, price);
-	    	   appList.add(app);
-	       }
-	       System.out.println(rs);
-
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -41,6 +23,27 @@ public class SQLConnection {
 				catch (Exception e) { /* ignore close errors */ }
 			}
 		}
+	}
+
+	public static ArrayList<APP> getApps() {
+		ArrayList<APP> appList = new ArrayList<APP>();
+
+		Statement stmt = connect.createStatement();
+       	String sql = "Select * From apptable;";
+       	ResultSet rs = stmt.executeQuery(sql);
+
+       	while (rs.next()) {
+    	   	int id = rs.getInt("appID");
+    	   	String name = rs.getString("Name");
+    	    String dev = rs.getString("Developer");
+    	    String link = rs.getString("Link");
+    	    String desc = rs.getString("Description");
+    	    String plat = rs.getString("Platform");
+    	    double price = rs.getDouble("Price");
+    	    APP app = new APP(id, name, dev, link, plat, plat, price);
+    	    appList.add(app);
+        }
+        return appList
 	}
 	
 	public static boolean loginCheck(String username, String password) {
