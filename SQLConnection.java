@@ -84,7 +84,7 @@ public class SQLConnection {
 	
 	public static boolean approveApp(int id) {
 		Statement st1 = connect.createStatement();
-		String submittedCheck = "Select * from submittedApps WHERE addID=" + id";";
+		String submittedCheck = "Select * from submittedApps WHERE appID=" + id + ";";
 		ResultSet rs = st.executeQuery(submittedCheck);
 		if (!rs.next()) {
 			return false;
@@ -101,6 +101,9 @@ public class SQLConnection {
 				+ " VALUES (" + id + ", '" + name + "', '" + developer + "', '" + "', '" + link + "', '" + description
 				+ "', '" + platform + "', " + price + ");";
 		st2.executeUpdate(add);
+		Statement st3 = connect.createStatement();
+		String update = "UPDATE submittedApps SET isAdded = 'Y' WHERE appID = " + id + ";";
+		st3.executeUpdate(update);
 		return true;
 	}
 
